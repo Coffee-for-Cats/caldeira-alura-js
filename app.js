@@ -8,7 +8,7 @@ exibirMensagemInicial();
 function exibirTextoNaTela(tag, text) {
     let campo = document.querySelector(tag);
     campo.innerHTML = text;
-    responsiveVoice.speak(text, 'Brazilian Portuguese Female', { rate: 1.2 });
+    //responsiveVoice.speak(text, 'Brazilian Portuguese Female', { rate: 1.2 });
 }
 
 function exibirMensagemInicial() {
