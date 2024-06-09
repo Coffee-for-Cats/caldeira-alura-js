@@ -9,9 +9,11 @@ function alterarStatus(id) {
 
   if (button.classList.contains('dashboard__item__button--return')) {
     button.classList.remove('dashboard__item__button--return');
+    button.textContent = "Alugar"
     image.classList.remove('dashboard__item__img--rented');
   } else {
     button.classList.add('dashboard__item__button--return');
+    button.textContent = "Devolver"
     image.classList.add('dashboard__item__img--rented');
   }
 }
