@@ -1,19 +1,18 @@
 import os
 
+from models.restaurante import Restaurante
+
 restaurantes = [
-  {
-    "nome": "Praça",
-    "categoria": "Japonesa",
-    "ativo": False
-  },
-  {
-    "nome": "Pizza Suprema",
-    "categoria": "italiana",
-    "ativo": True
-  }
+  Restaurante("Praça", "Japonesa"),
+  Restaurante("Pizza Suprema", "Italiana")
 ]
 
 def menu():
+  """
+  Menu central da aplicação; limpa a tela e mostra as opções que o usuário pode executar,
+  além de chamar a função correspondente a tal opção. opcao_invalida() é
+  chamada caso um valor inválido seja digitado.
+  """
   os.system('cls')
   print("""
   █▀ ▄▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
@@ -43,42 +42,73 @@ def retornar():
 
 
 def cadastrar():
+  """
+  Responsável por cadastrar um novo restaurante
+  Inputs:
+    - nome do restaurante
+    - categoria
+
+  Outputs:
+   - adiciona o restaurante na lista restaurantes
+  """
   print("Cadastro de novos restaurantes")
   nome_res = input("Nome do restaurante: ")
   categoria_res = input("Categoria do restaurante: ")
 
-  res = {
-    "nome": nome_res, 
-    "categoria": categoria_res, 
-    "ativo": False
-  }
+  res = Restaurante(nome_res, categoria_res)
+
+  # res = {
+  #   "nome": nome_res, 
+  #   "categoria": categoria_res, 
+  #   "ativo": False
+  # }
   restaurantes.append(res)
   #
   retornar()
 
 
 def exibir():
+  """
+  Busca receitas por categoria e retorna uma lista de receitas
+  Inputs:
+   - categoria (str): A categoria da receita desejada
+
+  Outputs:
+   - list: Uma lista contendo as receitas da categoria especificada
+  """
+
   print("Restaurantes já cadastrados:")
-  for res in restaurantes:
-    ativo = "ativo" if res['ativo'] else "desativado"
-    print(f"> {res['nome'].ljust(20)} | {res['categoria'].ljust(20)} | {ativo}")
+  Restaurante.listar()
+  # for res in restaurantes:
+  #   ativo = "ativo" if res['ativo'] else "desativado"
+  #   print(f"> {res['nome'].ljust(20)} | {res['categoria'].ljust(20)} | {ativo}")
   print('\n')
   #
   retornar()
 
 
 def ativar():
+  """
+  Alterna o status de um restaurante.
+  Inputs:
+   - nome do restaurante (str)
+  Outputs:
+   - modifica o status do restaurante com o nome
+  """
   print("Alternar estado do restaurante")
   nome = input("Digite o nome do restaurante que deseja alternar o estado: ")
   encontrado = False
-  for res in restaurantes:
-    if res['nome'] == nome:
+  for res in Restaurante.restaurantes:
+    if res._nome == nome:
+      res.ativar()
       encontrado = True
-      res['ativo'] = not res['ativo']
-      # bem estranho na verdade, mas funciona bem.
-      acao = 'ativado' if res['ativo'] else 'desativado'
-      mensagem = f"O restaurante {res['nome']} foi {acao} com sucesso."
-      print(mensagem)
+    # if res['nome'] == nome:
+    #   encontrado = True
+    #   res['ativo'] = not res['ativo']
+    #   # bem estranho na verdade, mas funciona bem.
+    #   acao = 'ativado' if res['ativo'] else 'desativado'
+    #   mensagem = f"O restaurante {res['nome']} foi {acao} com sucesso."
+    #   print(mensagem)
   
   if not encontrado:
     print("Restaurante não encontrado.")
@@ -87,12 +117,18 @@ def ativar():
 
 
 def sair():
-  executando = False
+  """
+  Limpa a tela e sai do programa;
+  Nada é executado, a função apenas não chama o menu() novamente
+  """
   os.system('cls')
   print("Encerrando programa...")
 
 
 def opcao_invalida():
+  """
+  Printa que a opção é inválida e retorna para o menu
+  """
   print("Opção Inválida!")
   retornar()
 
