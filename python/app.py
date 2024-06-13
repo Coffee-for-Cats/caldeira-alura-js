@@ -7,6 +7,10 @@ restaurantes = [
   Restaurante("Pizza Suprema", "Italiana")
 ]
 
+def retornar():
+  input("Pressione qualquer tecla para retornar ao menu.")
+  menu()
+
 def menu():
   """
   Menu central da aplicação; limpa a tela e mostra as opções que o usuário pode executar,
@@ -21,7 +25,8 @@ def menu():
   print("1. Cadastrar restaurante")
   print("2. Exibir restaurantes")
   print("3. Alternar estado do restaurante")
-  print("4. Sair")
+  print("4. Avaliar restaurante")
+  print("5. Sair")
   
   try:
     op = int(input())
@@ -32,14 +37,9 @@ def menu():
   if op == 1: cadastrar()
   elif op == 2: exibir()
   elif op == 3: ativar()
-  elif op == 4: sair()
+  elif op == 4: avaliar()
+  elif op == 5: sair()
   else: opcao_invalida()
-
-
-def retornar():
-  input("Pressione qualquer tecla para retornar ao menu.")
-  menu()
-
 
 def cadastrar():
   """
@@ -57,15 +57,9 @@ def cadastrar():
 
   res = Restaurante(nome_res, categoria_res)
 
-  # res = {
-  #   "nome": nome_res, 
-  #   "categoria": categoria_res, 
-  #   "ativo": False
-  # }
   restaurantes.append(res)
   #
   retornar()
-
 
 def exibir():
   """
@@ -85,7 +79,6 @@ def exibir():
   print('\n')
   #
   retornar()
-
 
 def ativar():
   """
@@ -115,6 +108,25 @@ def ativar():
   #
   retornar()
 
+def avaliar():
+  cliente = input("Nome do cliente: ")
+  restaurante = input("Nome do restaurante: ")
+  # não é uma boa ideia fazer validação do nome do restaurante,
+  # por que se o usuário se esquecer do nome ele fica preso.
+  nota = input("Nota dada (0..5): ")
+  while nota < 0 or nota > 5:
+    nota = input("Nota inválida! Precisa ser de 0 até 5: ")
+  
+  encontrado = False
+  for res in restaurantes:
+    if res._nome == restaurante:
+      res.receber_avaliacao(cliente, nota)
+      print("Avalição salva com sucesso!")
+      encontrado = True
+      break;
+  
+  if not encontrado:
+    print("Restaurante não encontrado!")
 
 def sair():
   """
@@ -124,18 +136,12 @@ def sair():
   os.system('cls')
   print("Encerrando programa...")
 
-
 def opcao_invalida():
   """
   Printa que a opção é inválida e retorna para o menu
   """
   print("Opção Inválida!")
   retornar()
-
-
-# def main():
-#   menu()
-
 
 if __name__ == "__main__":
   menu()
