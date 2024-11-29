@@ -40,8 +40,3 @@ class Restaurante:
     print(f"{'Nome'.ljust(25)} | {'Categoria'.ljust(15)} | {'Ativo'.ljust(15)} | {'Avaliacao'.ljust(15)}")
     for res in cls.restaurantes:
       print(f"{res._nome.ljust(25)} | {res._categoria.ljust(15)} | {res.ativo.ljust(14)} | {str(res.media_avaliacoes).ljust(15)}")
-
-# res_praca._ativo = True # funciona
-# res_praca.nome = "Restaurante da Praça"
-
-Restaurante.listar();

@@ -2,11 +2,6 @@ import os
 
 from models.restaurante import Restaurante
 
-restaurantes = [
-  Restaurante("Praça", "Japonesa"),
-  Restaurante("Pizza Suprema", "Italiana")
-]
-
 def retornar():
   input("Pressione qualquer tecla para retornar ao menu.")
   menu()
@@ -17,7 +12,7 @@ def menu():
   além de chamar a função correspondente a tal opção. opcao_invalida() é
   chamada caso um valor inválido seja digitado.
   """
-  os.system('cls')
+  # os.system('cls')
   print("""
   █▀ ▄▀█ █▄▄ █▀█ █▀█   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
   ▄█ █▀█ █▄█ █▄█ █▀▄   ██▄ █ █ █▀▀ █▀▄ ██▄ ▄█ ▄█\n
@@ -33,7 +28,6 @@ def menu():
   except:
     opcao_invalida()
 
-  # print(f"Você escolheu {op}.")
   if op == 1: cadastrar()
   elif op == 2: exibir()
   elif op == 3: ativar()
